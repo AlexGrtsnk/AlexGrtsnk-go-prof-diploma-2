@@ -24,7 +24,7 @@ func ClientTerminalWorking() {
 		return
 	}
 	flag := 0
-	var token_cookie *http.Cookie
+	var tokenCookie *http.Cookie
 	for {
 		var chs int
 		var login, password string
@@ -62,11 +62,12 @@ func ClientTerminalWorking() {
 					log.Fatal(err)
 				}
 				resp, err := client.Do(request)
+				resp.Body.Close()
 				if err != nil {
 					fmt.Println("Registration was not sucessfull. Please check your login and password")
 					continue
 				}
-				token_cookie, err = resp.Request.Cookie("exampleCookie")
+				tokenCookie, err = resp.Request.Cookie("exampleCookie")
 				if err != nil {
 					fmt.Println("Registration was not sucessfull. Please check ypur login and password")
 					continue
@@ -99,11 +100,12 @@ func ClientTerminalWorking() {
 					log.Fatal(err)
 				}
 				resp, err := client.Do(request)
+				resp.Body.Close()
 				if err != nil {
 					fmt.Println("Entering was not sucessfull. Please check ypur login and password")
 					continue
 				}
-				token_cookie, err = resp.Request.Cookie("exampleCookie")
+				tokenCookie, err = resp.Request.Cookie("exampleCookie")
 				if err != nil {
 					fmt.Println("Entering was not sucessfull. Please check ypur login and password")
 					continue
@@ -147,7 +149,7 @@ func ClientTerminalWorking() {
 				log.Fatal(err)
 			}
 			request, err := http.NewRequest("POST", apiRunAddr+"/text", b)
-			request.AddCookie(token_cookie)
+			request.AddCookie(tokenCookie)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -162,11 +164,12 @@ func ClientTerminalWorking() {
 			fmt.Println("This is your added texts:")
 			b := new(bytes.Buffer)
 			request, err := http.NewRequest("GET", apiRunAddr+"/text", b)
-			request.AddCookie(token_cookie)
+			request.AddCookie(tokenCookie)
 			if err != nil {
 				log.Fatal(err)
 			}
 			resp, err := client.Do(request)
+			resp.Body.Close()
 			if err != nil {
 				fmt.Println("Getting text was not sucessfull. Please do it again")
 				continue
@@ -192,7 +195,11 @@ func ClientTerminalWorking() {
 				panic(err)
 			}
 			var b1 []byte
-			f.Read(b1)
+			_, err = f.Read(b1)
+			if err != nil {
+				fmt.Println("Full path input was incorrect, please try again", err)
+				continue
+			}
 			binTmp := string(b1[:])
 
 			b := new(bytes.Buffer)
@@ -201,7 +208,7 @@ func ClientTerminalWorking() {
 				log.Fatal(err)
 			}
 			request, err := http.NewRequest("POST", apiRunAddr+"/bin", b)
-			request.AddCookie(token_cookie)
+			request.AddCookie(tokenCookie)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -215,11 +222,12 @@ func ClientTerminalWorking() {
 			fmt.Println("This is your added binaries:")
 			b := new(bytes.Buffer)
 			request, err := http.NewRequest("GET", apiRunAddr+"/bin", b)
-			request.AddCookie(token_cookie)
+			request.AddCookie(tokenCookie)
 			if err != nil {
 				log.Fatal(err)
 			}
 			resp, err := client.Do(request)
+			resp.Body.Close()
 			if err != nil {
 				fmt.Println("Getting binaries was not sucessfull. Please do it again")
 				continue
@@ -259,7 +267,7 @@ func ClientTerminalWorking() {
 				log.Fatal(err)
 			}
 			request, err := http.NewRequest("POST", apiRunAddr+"/card", b)
-			request.AddCookie(token_cookie)
+			request.AddCookie(tokenCookie)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -273,11 +281,12 @@ func ClientTerminalWorking() {
 			fmt.Println("This is your added cards:")
 			b := new(bytes.Buffer)
 			request, err := http.NewRequest("GET", apiRunAddr+"/card", b)
-			request.AddCookie(token_cookie)
+			request.AddCookie(tokenCookie)
 			if err != nil {
 				log.Fatal(err)
 			}
 			resp, err := client.Do(request)
+			resp.Body.Close()
 			if err != nil {
 				fmt.Println("Getting cards was not sucessfull. Please do it again")
 				continue

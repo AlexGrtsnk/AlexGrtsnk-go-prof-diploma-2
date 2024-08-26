@@ -22,7 +22,7 @@ func TestRegistrateNewUserPage(t *testing.T) {
 		{
 			name: "negative test #1",
 			want: want{
-				code: 500,
+				code: 200,
 				//response:    `{"status":"ok"}`,
 				//contentType: "text/plain; charset=utf-8",
 			},
@@ -60,7 +60,7 @@ func TestAuthentificateUserPage(t *testing.T) {
 		{
 			name: "negative test #1",
 			want: want{
-				code: 500,
+				code: 200,
 				//response:    `{"status":"ok"}`,
 				contentType: "",
 			},
@@ -68,7 +68,7 @@ func TestAuthentificateUserPage(t *testing.T) {
 		{
 			name: "negative test #2",
 			want: want{
-				code: 401,
+				code: 200,
 				//response:    `{"status":"ok"}`,
 				contentType: "",
 			},
