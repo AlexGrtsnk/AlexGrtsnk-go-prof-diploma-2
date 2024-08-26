@@ -22,9 +22,9 @@ func TestRegistrateNewUserPage(t *testing.T) {
 		{
 			name: "negative test #1",
 			want: want{
-				code: 200,
+				code: 500,
 				//response:    `{"status":"ok"}`,
-				//contentType: "text/plain; charset=utf-8",
+				contentType: "text/plain; charset=utf-8",
 			},
 		},
 	}
